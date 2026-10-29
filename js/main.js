@@ -7,6 +7,7 @@ window.VoidApp = (() => {
   let dialogTrigger;
   const information = {
     account: ['Sua conta VOID', 'A área de clientes ainda não está disponível.'],
+    agency: ['Encontre a VOID', 'A lista de agências será disponibilizada em breve.'],
     contact: ['Fale com a VOID', 'O canal oficial de atendimento será disponibilizado em breve.'],
     shipping: ['Envios', 'As informações de entrega serão disponibilizadas no canal oficial de compra.'],
     returns: ['Trocas e devoluções', 'A política oficial de trocas e devoluções será disponibilizada antes da abertura das vendas.'],
@@ -33,22 +34,22 @@ window.VoidApp = (() => {
     window.location.assign(target.href); return true;
   }
   function initMedia() {
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     document.querySelectorAll('video[data-video]').forEach(video => {
       const source = VOID_CONFIG.videos[video.dataset.video];
       const control = video.closest('.media-section').querySelector('.media-toggle');
       if (!source) return;
       let visible = false;
-      let userPaused = false;
-      let explicitlyPlaying = false;
       video.muted = true;
-      video.autoplay = !reduced.matches;
+      video.loop = true;
+      video.autoplay = true;
       const updateControl = () => {
-        control.textContent = video.paused ? 'Reproduzir vídeo' : 'Pausar vídeo';
-        control.setAttribute('aria-label', control.textContent);
+        const label = video.muted ? 'Ativar som' : 'Silenciar vídeo';
+        control.setAttribute('aria-label', label);
+        control.setAttribute('title', label);
+        control.setAttribute('aria-pressed', String(!video.muted));
       };
       const sync = () => {
-        if (visible && !document.hidden && !userPaused && (!reduced.matches || explicitlyPlaying)) video.play().catch(() => { control.hidden = false; updateControl(); });
+        if (visible && !document.hidden) video.play().catch(() => {});
         else video.pause();
       };
       const observer = new IntersectionObserver(entries => {
@@ -58,16 +59,14 @@ window.VoidApp = (() => {
       }, { threshold: .03 });
       observer.observe(video);
       video.addEventListener('loadeddata', () => { control.hidden = false; updateControl(); sync(); });
-      video.addEventListener('play', updateControl);
-      video.addEventListener('pause', updateControl);
       video.addEventListener('error', () => { video.removeAttribute('src'); video.load(); control.hidden = true; observer.disconnect(); });
       control.addEventListener('click', () => {
-        userPaused = !video.paused;
-        explicitlyPlaying = !userPaused;
+        video.muted = !video.muted;
+        updateControl();
+        if (!video.paused) return;
         sync();
       });
       document.addEventListener('visibilitychange', sync);
-      reduced.addEventListener('change', () => { explicitlyPlaying = false; sync(); });
     });
   }
   function init() {

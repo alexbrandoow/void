@@ -10,7 +10,8 @@ Todos os recursos usados estão locais; o site não depende de URLs temporárias
 | `assets/images/construction.png` | `56:23` | Construção e terceira vista da galeria |
 | `assets/images/community.png` | `66:36` | Comunidade |
 | `assets/images/void-reference.png` | `ref/skate.png`, fornecido pelo usuário | Segunda vista da galeria, prancha completa sem alterações |
-| `assets/icons/logo.svg` | `6:354` | Header, footer e favicon |
+| `assets/icons/logo.svg` | `6:354` | Header |
+| `assets/icons/favicon.svg` | Monograma VOID criado para a aba | Favicon |
 | `assets/icons/account.svg` | `7:409` | Acesso à conta, com estado de indisponibilidade |
 | `assets/icons/arrow-small.svg` | `7:417` | CTA do header e CTA final |
 | `assets/icons/arrow-down.svg` | `10:477` | CTA principal do hero |
@@ -30,9 +31,9 @@ O Figma contém somente o frame desktop. A responsividade é uma adaptação da 
 
 Os cards de diferenciais estavam distribuídos em uma área preta longa no Figma; foram convertidos para a sequência com pin solicitada, preservando alternância de lados, aparência e textos. Nenhum modelo 3D ou vista explodida foi inventado: a imagem técnica já existia no nó `56:23`.
 
-## Pendências de mídia
+## Vídeos
 
-- Vídeo de produto, nó `111:6`: `videoHash c95a04c02df02a342046f48f99f0e8bfc56d196e`.
-- Vídeo de rua, nó `160:6`: `videoHash 3b802070f2d2843db468ce9356b35877238ed288`.
+- `assets/videos/video 2.mp4`: apresentação do produto na seção O Skate (`111:6`).
+- `assets/videos/video 1.mp4`: movimento na rua na seção Diferenciais (`160:6`).
 
-O MCP não forneceu os MP4 originais. Os hashes servem apenas para identificar as camadas; não são URLs de download.
+Os dois vídeos rodam normalmente em loop com som inicialmente silenciado. Na seção Diferenciais, o scroll controla apenas a passagem dos cards.

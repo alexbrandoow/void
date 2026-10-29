@@ -11,12 +11,13 @@
   <meta property="og:description" content="Sua linha. Suas regras. Conheça o VOID ONE, série 001.">
   <meta property="og:image" content="assets/images/hero.png">
   <meta property="og:locale" content="pt_BR">
-  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" sizes="any">
   <link rel="preload" href="assets/fonts/Satoshi-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/images/hero.png" as="image" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/revisions.css">
   <script defer src="js/vendor/gsap.min.js"></script>
   <script defer src="js/vendor/ScrollTrigger.min.js"></script>
   <script defer src="js/vendor/lenis.min.js"></script>
@@ -32,14 +33,13 @@
     <nav class="desktop-nav" aria-label="Navegação principal">
       <a class="nav-link" href="#o-skate" data-node-id="7:374">O Skate</a>
       <a class="nav-link" href="#diferenciais">Diferenciais</a>
-      <a class="nav-link" href="#desempenho">Desempenho</a>
       <a class="nav-link" href="#sobre">Sobre a VOID</a>
       <a class="nav-link" href="#comunidade">Comunidade</a>
     </nav>
     <a class="brand" href="#home" aria-label="VOID — Home"><img src="assets/icons/logo.svg" alt="VOID" width="91.9251" height="48"></a>
     <div class="header-actions">
       <button class="login-button" type="button" data-info="account">Fazer Login <img src="assets/icons/account.svg" alt=""></button>
-      <a class="button button-small" href="#comprar">Quero meu VOID <img class="arrow-right" src="assets/icons/arrow-small.svg" alt=""></a>
+      <a class="button button-small" href="#comprar">Comprar Agora <img class="arrow-right" src="assets/icons/arrow-small.svg" alt=""></a>
       <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu"><span></span><span></span></button>
     </div>
     <nav id="mobile-menu" class="mobile-menu" aria-label="Navegação mobile" hidden>
@@ -66,7 +66,7 @@
       <div class="intro-shade"></div>
       <div class="intro-heading reveal"><p class="eyebrow">CONHEÇA O VOID ONE</p><h2 id="intro-title">Feito <span>para</span> <strong>andar.</strong> Feito <span>para</span> <strong>Durar.</strong></h2></div>
       <p class="intro-description description reveal">Um skate completo desenvolvido para equilibrar resistência, estabilidade, resposta e identidade.</p>
-      <button class="media-toggle" type="button" hidden aria-label="Pausar vídeo">Pausar vídeo <span aria-hidden="true">Ⅱ</span></button>
+      <button class="media-toggle" type="button" hidden aria-label="Ativar som" aria-pressed="false" title="Ativar som"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4"/><path class="sound-waves" d="M16 9a4 4 0 0 1 0 6m2.5-8.5a8 8 0 0 1 0 11"/><path class="sound-slash" d="M17 9l5 6m0-6l-5 6"/></svg></button>
     </section>
 
     <section id="diferenciais" class="features" aria-labelledby="features-title">
@@ -80,8 +80,7 @@
           <article class="feature-card glass-card"><span class="eyebrow">03 / DURABILIDADE</span><h3>Durabilidade</h3><p>Materiais feitos para enfrentar muitos quilômetros de concreto.</p></article>
           <article class="feature-card glass-card"><span class="eyebrow">04 / IDENTIDADE</span><h3>Identidade</h3><p>Design underground para quem vê o skate como parte de quem é.</p></article>
         </div>
-        <div class="features-progress" aria-hidden="true"><span>VOID / EM MOVIMENTO</span><div><i></i></div><span class="feature-count">01 — 04</span></div>
-        <button class="media-toggle" type="button" hidden aria-label="Pausar vídeo">Pausar vídeo <span aria-hidden="true">Ⅱ</span></button>
+        <button class="media-toggle" type="button" hidden aria-label="Ativar som" aria-pressed="false" title="Ativar som"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4"/><path class="sound-waves" d="M16 9a4 4 0 0 1 0 6m2.5-8.5a8 8 0 0 1 0 11"/><path class="sound-slash" d="M17 9l5 6m0-6l-5 6"/></svg></button>
       </div>
     </section>
 
@@ -100,9 +99,9 @@
     <section id="sobre" class="manifesto" aria-labelledby="manifesto-title">
       <div class="manifesto-mark" aria-hidden="true"></div><div class="manifesto-overlay" aria-hidden="true"></div>
       <div class="manifesto-copy reveal"><p class="eyebrow">POR QUE VOID?</p><h2 id="manifesto-title"><span>Sua</span> Linha.<br><span>Suas</span> Regras.</h2><p class="description">VOID nasce da liberdade de escolher o próprio caminho. Sem padrões, sem destino obrigatório e sem precisar ser igual a ninguém.</p></div>
-      <div class="pillar pillar-freedom glass-card reveal"><h3>Liberdade</h3><p>Seja quem você é.</p></div>
-      <div class="pillar pillar-resistance glass-card reveal"><h3>Resistência</h3><p>Cair faz parte. Continuar também.</p></div>
-      <div class="pillar pillar-motion glass-card reveal"><h3>Movimento</h3><p>Explore. Descubra. Continue.</p></div>
+      <div class="pillar pillar-freedom glass-card"><h3>Liberdade</h3><p>Seja quem você é.</p></div>
+      <div class="pillar pillar-resistance glass-card"><h3>Resistência</h3><p>Cair faz parte. Continuar também.</p></div>
+      <div class="pillar pillar-motion glass-card"><h3>Movimento</h3><p>Explore. Descubra. Continue.</p></div>
       <blockquote class="manifesto-quote">“Liberdade não é ter um destino. É poder escolher o seu.”</blockquote>
     </section>
 
@@ -128,18 +127,22 @@
           <div class="purchase-actions"><button class="button" type="submit">QUERO MEU VOID <img src="assets/icons/payment.svg" alt=""></button><button class="button button-dark" type="button" id="add-to-cart">Colocar no carrinho <img src="assets/icons/cart.svg" alt=""></button></div>
         </form>
         <p class="product-feedback" role="status" aria-live="polite"></p>
-        <ul class="benefits"><li>Pagamento seguro</li><li>Envio para todo o Brasil</li><li>Garantia VOID</li><li>Montado e pronto para andar</li></ul>
+        <ul class="benefits">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1"/></svg><span>Pagamento seguro</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v11H3zM14 9h4l3 3v5h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg><span>Envio para todo o Brasil</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 20 5v6c0 5.2-3.2 8.7-8 11-4.8-2.3-8-5.8-8-11V5z"/><path d="m8.5 12 2.3 2.3 4.7-4.7"/></svg><span>Garantia VOID</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="5" rx="2.5"/><circle cx="7" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/><path d="M7 14v2.3M17 14v2.3"/></svg><span>Montado e pronto para andar</span></li>
+        </ul>
       </div>
     </section>
 
     <div class="closing">
       <div class="closing-mark" aria-hidden="true"></div><div class="closing-overlay" aria-hidden="true"></div>
       <section class="final-cta" aria-labelledby="final-title"><p class="eyebrow reveal">SEM DESTINO DEFINIDO.</p><h2 id="final-title" class="reveal">Para onde você<br>vai agora?</h2><p class="description reveal">Você não precisa saber onde vai chegar.<br>Só precisa de algo que aguente o caminho.</p><a class="button reveal" href="#comprar">QUERO MEU VOID <img class="arrow-right" src="assets/icons/arrow-small.svg" alt=""></a></section>
-      <footer class="site-footer"><div class="footer-intro"><a href="#home" aria-label="VOID — Voltar ao início"><img src="assets/icons/logo.svg" alt="VOID" width="91.9251" height="48"></a><p>Feito para explorar.</p></div>
-        <div class="footer-columns"><nav aria-label="Explore"><h2>EXPLORE</h2><a href="#home">Home</a><a href="#o-skate">O Skate</a><a href="#diferenciais">Diferenciais</a><a href="#desempenho">Desempenho</a><a href="#sobre">Nossa história</a><a href="#comunidade">VOID Nomads</a></nav>
-          <nav aria-label="Suporte"><h2>SUPORTE</h2><button data-info="contact">Contato</button><button data-info="shipping">Envios</button><button data-info="returns">Trocas e devoluções</button><button data-info="warranty">Garantia</button><button data-info="faq">Perguntas frequentes</button></nav>
-          <nav class="social-links" aria-label="Redes sociais"><h2>SIGA O MOVIMENTO</h2><button data-social="instagram">Instagram <span>↗</span></button><button data-social="tiktok">TikTok <span>↗</span></button><button data-social="youtube">YouTube <span>↗</span></button></nav></div>
-        <div class="footer-bottom"><span>© 2026 VOID SKATEBOARDS.</span><span>SEM DESTINO DEFINIDO.</span><a href="#home">Voltar ao topo ↑</a></div>
+      <footer class="site-footer">
+        <div class="footer-columns"><nav aria-label="Explore"><h2>EXPLORE</h2><a href="#home">Home</a><a href="#o-skate">O Skate</a><a href="#diferenciais">Diferenciais</a><button data-info="agency">Encontrar uma agência</button></nav>
+          <nav aria-label="Suporte"><h2>Suporte</h2><button data-info="contact">Contato</button><button data-info="shipping">Envios</button><button data-info="returns">Trocas e Devoluções</button><button data-info="warranty">Garantia</button></nav>
+          <nav class="social-links" aria-label="Redes sociais"><h2>Siga o Movimento</h2><button data-social="instagram">Instagram</button><button data-social="tiktok">TikTok</button><button data-social="youtube">Youtube</button></nav></div>
       </footer>
     </div>
   </main>

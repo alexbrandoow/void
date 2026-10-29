@@ -19,12 +19,11 @@ window.VoidAnimations = (() => {
         gsap.from(element, { autoAlpha: 0, y: centered ? 0 : 32, duration: .85, ease: 'power2.out', scrollTrigger: { trigger: element, start: 'top 92%', once: true } });
       });
     });
-    media.add({ desktop: '(min-width: 901px)', motion: '(prefers-reduced-motion: no-preference)' }, context => {
-      if (!context.conditions.desktop || !context.conditions.motion) return;
+    media.add({ desktop: '(min-width: 901px)', mobile: '(max-width: 900px)', motion: '(prefers-reduced-motion: no-preference)' }, context => {
+      if (!context.conditions.motion) return;
       const section = document.querySelector('.features');
       const cards = gsap.utils.toArray('.feature-card');
       const heading = section.querySelector('.features-heading');
-      const counter = section.querySelector('.feature-count');
       section.classList.add('is-pinned');
       gsap.set(cards, { autoAlpha: 0, y: 50 });
       const timeline = gsap.timeline({ defaults: { ease: 'none' } });
@@ -35,18 +34,12 @@ window.VoidAnimations = (() => {
         if (index < cards.length - 1) timeline.to(card, { autoAlpha: 0, y: -45, duration: .35, ease: 'power1.in' }, start + 1.16);
       });
       timeline.to({}, { duration: .9 });
-      timeline.fromTo('.features-progress i', { scaleX: 0 }, { scaleX: 1, duration: timeline.duration() }, 0);
       ScrollTrigger.create({
         id: 'void-features', trigger: section, pin: '.features-stage', start: 'top top',
-        end: () => '+=' + Math.round(window.innerHeight * cards.length * 1.15),
-        animation: timeline, scrub: .65, anticipatePin: 1, invalidateOnRefresh: true,
-        onUpdate(self) {
-          const index = Math.min(3, Math.max(0, Math.floor((self.progress * timeline.duration() - 1) / 1.55)));
-          counter.textContent = `0${index + 1} — 04`;
-        }
+        end: () => '+=' + Math.round(window.innerHeight * cards.length * (context.conditions.mobile ? 1 : 1.15)),
+        animation: timeline, scrub: .65, anticipatePin: 1, invalidateOnRefresh: true
       });
-      // Videos keep their own clock: never seek currentTime in a scroll callback.
-      return () => { section.classList.remove('is-pinned'); counter.textContent = '01 — 04'; };
+      return () => section.classList.remove('is-pinned');
     });
     document.fonts.ready.then(() => ScrollTrigger.refresh());
     window.addEventListener('load', () => {

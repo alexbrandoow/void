@@ -9,7 +9,5 @@ window.VOID_CONFIG = Object.freeze({
   accountUrl: '',
   social: { instagram: '', tiktok: '', youtube: '' },
   support: { contact: '', shipping: '', returns: '', warranty: '', faq: '' },
-  // Os MP4 não foram disponibilizados pelo MCP. Adicione os arquivos e seus caminhos:
-  // product: 'assets/videos/void-one.mp4', street: 'assets/videos/void-street.mp4'.
-  videos: { product: '', street: '' }
+  videos: { product: 'assets/videos/video%202.mp4', street: 'assets/videos/video%201.mp4' }
 });

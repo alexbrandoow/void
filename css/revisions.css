@@ -1,0 +1,135 @@
+.media-toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 50%;
+  background: rgba(0,0,0,.32);
+  color: rgba(255,255,255,.85);
+  backdrop-filter: blur(8px);
+  transition: background .2s, color .2s;
+}
+.media-toggle:hover { background: rgba(0,0,0,.6); color: #fff; }
+.media-toggle svg { width: 18px; height: 18px; }
+.media-toggle .sound-waves { display: none; }
+.media-toggle[aria-pressed="true"] .sound-waves { display: block; }
+.media-toggle[aria-pressed="true"] .sound-slash { display: none; }
+
+.benefits li { display: flex; align-items: flex-start; gap: 8px; }
+.benefits li::before { content: none; }
+.benefits svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pillar {
+  --drift-x: 8px;
+  --drift-y: -10px;
+  --drift-tilt: 1deg;
+  animation: pillar-drift 10s ease-in-out infinite;
+}
+.pillar-freedom { animation-delay: -2s; }
+.pillar-resistance { --drift-x: -9px; --drift-y: -8px; --drift-tilt: -.8deg; animation-duration: 12s; animation-delay: -5s; }
+.pillar-motion { --drift-x: -7px; --drift-y: 11px; --drift-tilt: .7deg; animation-duration: 11s; animation-delay: -7s; }
+@keyframes pillar-drift {
+  0%,100% { transform: translate3d(0,0,0) rotate(0); }
+  50% { transform: translate3d(var(--drift-x),var(--drift-y),0) rotate(var(--drift-tilt)); }
+}
+
+@media(min-width:901px) {
+  .hero-hat,.scroll-cue,.hero-edition,.intro-heading .eyebrow,
+  .feature-card>.eyebrow,.manifesto-copy>.eyebrow,.manifesto-quote,
+  .community-copy>.eyebrow,.community-caption { display: none; }
+  .intro-heading { top: 7.2%; }
+  .intro-description { bottom: 25%; }
+}
+
+.site-footer { position: relative; background: #000; }
+.footer-columns { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.footer-columns nav {
+  height: 362px;
+  justify-content: center;
+  gap: 24px;
+  padding: 0 48px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-left: 0;
+  background: rgba(0,0,0,.2);
+}
+.footer-columns h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+.footer-columns a,.footer-columns button {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.02em;
+  background: transparent;
+}
+.footer-columns nav:not(.social-links) a:not(:first-of-type),
+.footer-columns nav:not(.social-links) button:not(:first-of-type),
+.footer-columns nav:not(.social-links) a + button { margin-top: -24px; }
+.footer-columns .social-links { align-items: center; gap: 16px; }
+.social-links h2 { width: 100%; text-align: center; }
+.social-links h2 { margin-bottom: 6px; }
+.social-links button {
+  justify-content: center;
+  width: min(342px,100%);
+  height: 42px;
+  margin: 0;
+  border-radius: 8px;
+  background: #1b1b1b;
+}
+
+@media(max-width:900px) {
+  .features.is-pinned .features-stage {
+    height: 100svh;
+    min-height: 0;
+    padding: 0;
+  }
+  .features.is-pinned .features-stage>.scene-image { height: 100%; object-position: 60% center; }
+  .features.is-pinned .features-shade { background-size: cover; }
+  .features.is-pinned .features-heading {
+    top: 14%;
+    left: var(--gutter);
+    width: calc(100% - 2 * var(--gutter));
+  }
+  .features.is-pinned .feature-card,
+  .features.is-pinned .feature-card:nth-child(even) {
+    bottom: 12%;
+    width: min(440px,calc(100% - 2 * var(--gutter)));
+    max-width: none;
+    margin: 0;
+  }
+  .features.is-pinned .feature-card { left: var(--gutter); right: auto; }
+  .features.is-pinned .feature-card:nth-child(even) { left: auto; right: var(--gutter); }
+  .features.is-pinned .media-toggle { top: auto; bottom: 24px; }
+  .footer-columns nav { padding: 0 24px; }
+}
+@media(max-width:600px) {
+  .media-toggle { width: 34px; height: 34px; }
+  .product-intro>.scene-image { object-fit: cover; background: #000; }
+  .footer-columns { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .footer-columns nav { height: 280px; padding: 0 22px; }
+  .footer-columns .social-links { grid-column: 1/-1; height: 280px; }
+  .footer-columns h2 { font-size: 16px; }
+  .footer-columns a,.footer-columns button { font-size: 12px; }
+}
