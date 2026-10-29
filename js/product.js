@@ -1,14 +1,20 @@
 'use strict';
 window.VoidProduct = (() => {
   const state = { size: '8.0', image: '', inCart: false };
+  let initialized = false;
   function init() {
+    if (initialized) return;
     const config = window.VOID_CONFIG;
     const form = document.querySelector('#product-form');
     const feedback = document.querySelector('.product-feedback');
     const mainImage = document.querySelector('#product-image');
+    const price = document.querySelector('[data-price]');
+    const addToCart = document.querySelector('#add-to-cart');
+    if (!config || !form?.elements.size || !feedback || !mainImage || !price || !addToCart) return;
+    initialized = true;
     state.image = mainImage.getAttribute('src');
     const thumbnails = [...document.querySelectorAll('.gallery-thumb')];
-    document.querySelector('[data-price]').textContent = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: config.currency }).format(config.price);
+    price.textContent = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: config.currency }).format(config.price);
     try {
       const saved = sessionStorage.getItem('void-size');
       if (['8.0', '8.25', '8.5'].includes(saved)) state.size = saved;
@@ -18,7 +24,7 @@ window.VoidProduct = (() => {
       if (event.target.name !== 'size') return;
       state.size = event.target.value;
       state.inCart = false;
-      document.querySelector('#add-to-cart').firstChild.textContent = 'Colocar no carrinho ';
+      addToCart.firstChild.textContent = 'Colocar no carrinho ';
       feedback.textContent = `Shape ${state.size}″ selecionado.`;
       try { sessionStorage.setItem('void-size', state.size); } catch { /* Selection remains in memory. */ }
     });
@@ -34,7 +40,8 @@ window.VoidProduct = (() => {
         if (state.image !== nextSource) return;
         mainImage.src = nextSource;
         mainImage.alt = thumbnail.dataset.alt;
-        document.querySelector('#gallery-caption').textContent = thumbnail.dataset.caption;
+        const caption = document.querySelector('#gallery-caption');
+        if (caption) caption.textContent = thumbnail.dataset.caption;
         if (window.gsap && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
           gsap.fromTo(mainImage, { opacity: .3, scale: .985 }, { opacity: 1, scale: 1, duration: .4, overwrite: true });
         }
@@ -62,7 +69,7 @@ window.VoidProduct = (() => {
         VoidApp.showInfo('Seu próximo caminho.', `Você escolheu o VOID ONE ${state.size}″.\nA compra online ainda não está disponível. Nenhum pedido ou pagamento foi realizado.`);
       }
     });
-    document.querySelector('#add-to-cart').addEventListener('click', event => {
+    addToCart.addEventListener('click', event => {
       state.inCart = true;
       try { sessionStorage.setItem('void-cart', JSON.stringify({ product: 'void-one', size: state.size, quantity: 1 })); } catch { /* Cart state still works during this visit. */ }
       feedback.textContent = `VOID ONE ${state.size}″ salvo no carrinho desta visita.` + (config.checkoutUrl ? ' Continue em QUERO MEU VOID.' : ' A compra online ainda não está disponível.');

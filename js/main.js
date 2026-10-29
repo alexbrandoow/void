@@ -5,6 +5,7 @@ window.VoidApp = (() => {
   const menu = document.querySelector('#mobile-menu');
   const dialog = document.querySelector('#info-dialog');
   let dialogTrigger;
+  let initialized = false;
   const information = {
     account: ['Sua conta VOID', 'A área de clientes ainda não está disponível.'],
     agency: ['Encontre a VOID', 'A lista de agências será disponibilizada em breve.'],
@@ -35,9 +36,9 @@ window.VoidApp = (() => {
   }
   function initMedia() {
     document.querySelectorAll('video[data-video]').forEach(video => {
-      const source = VOID_CONFIG.videos[video.dataset.video];
-      const control = video.closest('.media-section').querySelector('.media-toggle');
-      if (!source) return;
+      const source = window.VOID_CONFIG?.videos?.[video.dataset.video];
+      const control = video.closest('.media-section')?.querySelector('.media-toggle');
+      if (!source || !control) return;
       let visible = false;
       video.muted = true;
       video.loop = true;
@@ -49,17 +50,18 @@ window.VoidApp = (() => {
         control.setAttribute('aria-pressed', String(!video.muted));
       };
       const sync = () => {
-        if (visible && !document.hidden) video.play().catch(() => {});
-        else video.pause();
+        if (visible && !document.hidden) {
+          if (video.paused) video.play().catch(() => {});
+        } else if (!video.paused) video.pause();
       };
       const observer = new IntersectionObserver(entries => {
         visible = entries[0].isIntersecting;
-        if (visible && !video.getAttribute('src')) { video.src = source; video.load(); }
+        if (visible && !video.getAttribute('src')) { video.src = new URL(source, document.baseURI).href; video.load(); }
         sync();
       }, { threshold: .03 });
       observer.observe(video);
       video.addEventListener('loadeddata', () => { control.hidden = false; updateControl(); sync(); });
-      video.addEventListener('error', () => { video.removeAttribute('src'); video.load(); control.hidden = true; observer.disconnect(); });
+      video.addEventListener('error', () => { control.hidden = true; observer.disconnect(); }, { once: true });
       control.addEventListener('click', () => {
         video.muted = !video.muted;
         updateControl();
@@ -70,6 +72,8 @@ window.VoidApp = (() => {
     });
   }
   function init() {
+    if (initialized || !header || !toggle || !menu || !dialog) return;
+    initialized = true;
     toggle.addEventListener('click', () => {
       if (!menu.hidden) { closeMenu(); return; }
       menu.hidden = false; toggle.setAttribute('aria-expanded', 'true'); toggle.setAttribute('aria-label', 'Fechar menu');

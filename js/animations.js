@@ -1,18 +1,31 @@
 'use strict';
 window.VoidAnimations = (() => {
   let media;
+  let initialized = false;
+  const fromIfPresent = (timeline, selector, vars, position) => {
+    const targets = gsap.utils.toArray(selector);
+    if (targets.length) timeline.from(targets, vars, position);
+  };
+  const onLoad = () => {
+    if (!initialized || !location.hash) return;
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    const target = document.getElementById(id);
+    if (target) VoidScroll.to(target, { immediate: true });
+  };
   function init() {
-    if (!window.gsap || !window.ScrollTrigger) return;
+    if (initialized || !window.gsap || !window.ScrollTrigger) return;
+    initialized = true;
     gsap.registerPlugin(ScrollTrigger);
     media = gsap.matchMedia();
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const hero = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      hero.from('.hero-image', { scale: 1.045, opacity: 0, duration: 1.25 })
-        .from('.hero-hat', { y: 10, autoAlpha: 0, duration: .45 }, .15)
-        .from('.hero .line > span', { yPercent: 110, duration: .8, stagger: .12 }, .24)
-        .from('.hero-copy .description', { y: 20, autoAlpha: 0, duration: .65 }, .55)
-        .from('.hero-buttons > *', { y: 14, autoAlpha: 0, duration: .55, stagger: .1 }, .72)
-        .from('.scroll-cue, .hero-edition', { autoAlpha: 0, duration: .6 }, 1);
+      fromIfPresent(hero, '.hero-image', { scale: 1.045, opacity: 0, duration: 1.25 });
+      fromIfPresent(hero, '.hero-hat', { y: 10, autoAlpha: 0, duration: .45 }, .15);
+      fromIfPresent(hero, '.hero .line > span', { yPercent: 110, duration: .8, stagger: .12 }, .24);
+      fromIfPresent(hero, '.hero-copy .description', { y: 20, autoAlpha: 0, duration: .65 }, .55);
+      fromIfPresent(hero, '.hero-buttons > *', { y: 14, autoAlpha: 0, duration: .55, stagger: .1 }, .72);
+      fromIfPresent(hero, '.scroll-cue, .hero-edition', { autoAlpha: 0, duration: .6 }, 1);
       gsap.utils.toArray('.reveal').forEach(element => {
         // Opacity-only for centered copy preserves its translateX positioning.
         const centered = element.classList.contains('intro-description');
@@ -22,8 +35,10 @@ window.VoidAnimations = (() => {
     media.add({ desktop: '(min-width: 901px)', mobile: '(max-width: 900px)', motion: '(prefers-reduced-motion: no-preference)' }, context => {
       if (!context.conditions.motion) return;
       const section = document.querySelector('.features');
-      const cards = gsap.utils.toArray('.feature-card');
-      const heading = section.querySelector('.features-heading');
+      const stage = section?.querySelector('.features-stage');
+      const cards = section ? gsap.utils.toArray(section.querySelectorAll('.feature-card')) : [];
+      const heading = section?.querySelector('.features-heading');
+      if (!section || !stage || !heading || !cards.length) return;
       section.classList.add('is-pinned');
       gsap.set(cards, { autoAlpha: 0, y: 50 });
       const timeline = gsap.timeline({ defaults: { ease: 'none' } });
@@ -35,20 +50,22 @@ window.VoidAnimations = (() => {
       });
       timeline.to({}, { duration: .9 });
       ScrollTrigger.create({
-        id: 'void-features', trigger: section, pin: '.features-stage', start: 'top top',
+        id: 'void-features', trigger: section, pin: stage, start: 'top top',
         end: () => '+=' + Math.round(window.innerHeight * cards.length * (context.conditions.mobile ? 1 : 1.15)),
         animation: timeline, scrub: .65, anticipatePin: 1, invalidateOnRefresh: true
       });
       return () => section.classList.remove('is-pinned');
     });
-    document.fonts.ready.then(() => ScrollTrigger.refresh());
-    window.addEventListener('load', () => {
-      ScrollTrigger.refresh();
-      if (location.hash && document.querySelector(location.hash)) VoidScroll.to(location.hash, { immediate: true });
-    }, { once: true });
-    document.querySelectorAll('img').forEach(image => {
-      if (!image.complete) image.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
-    });
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        if (initialized) ScrollTrigger.refresh(true);
+      }).catch(() => {});
+    }
+    window.addEventListener('load', onLoad, { once: true });
   }
-  return { init, destroy: () => media?.revert() };
+  return { init, destroy: () => {
+    initialized = false;
+    window.removeEventListener('load', onLoad);
+    media?.revert(); media = null;
+  } };
 })();
