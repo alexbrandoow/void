@@ -110,6 +110,7 @@ window.VoidApp = (() => {
     });
     dialog.addEventListener('close', () => { document.body.classList.remove('dialog-open'); VoidScroll.start(); dialogTrigger?.focus({ preventScroll: true }); });
     VoidScroll.init(); VoidAnimations.init(); VoidProduct.init(); initMedia();
+    window.VoidTextReveal?.init();
   }
   return { init, closeMenu, showInfo };
 })();

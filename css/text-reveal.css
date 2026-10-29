@@ -1,0 +1,6 @@
+.void-blur-word, .void-hero-char { display: inline-block; }
+.void-hero-char { backface-visibility: hidden; transform-origin: 50% 100%; }
+.void-hero-space { white-space: pre; }
+.hero h1 { perspective: 900px; }
+.manifesto h2 .void-blur-word,
+.intro-heading h2 .void-blur-word { font-weight: inherit; }

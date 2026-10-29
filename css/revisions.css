@@ -133,3 +133,24 @@
   .footer-columns h2 { font-size: 16px; }
   .footer-columns a,.footer-columns button { font-size: 12px; }
 }
+
+/* Hero desktop: dimensões do frame 10:488 no protótipo (1920 px). */
+@media(min-width:1201px) {
+  .hero-copy { width: min(43.333vw,832px); }
+  .hero-copy .description { width: min(38.594vw,741px); max-width: 100%; }
+  .hero-buttons { align-items: center; gap: min(1.667vw,32px); }
+  .hero-buttons .button {
+    flex: none;
+    min-width: 0;
+    min-height: 0;
+    height: min(3.906vw,75px);
+    padding: min(1.042vw,20px) 10px;
+    gap: min(.521vw,10px);
+    font-size: min(1.336vw,25.652px);
+    line-height: normal;
+    white-space: nowrap;
+  }
+  .hero-buttons .button:first-child { width: min(22.5vw,432px); min-width: 0; }
+  .hero-buttons .button:last-child { width: min(14.427vw,277px); padding-inline: 10px; background: #000; }
+  .hero-buttons .button:last-child:hover { background: #222; }
+}
